@@ -14,6 +14,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { withStyles } from "@material-ui/styles";
 
+
 const styles = {
   paper: {
     marginTop: "4em",
@@ -57,7 +58,7 @@ class Login extends Component {
       password: "",
       usernameValid: true,
       passwordValid: true,
-      formErrors: {
+      formerror: {
         username: "",
         password: ""
       }
@@ -66,11 +67,11 @@ class Login extends Component {
 
   componentDidUpdate(prevProps) {
     //when login error
-    if (prevProps.errors !== this.props.errors) {
-      console.log(this.props.errors);
-      if (this.props.errors) {
+    if (prevProps.error !== this.props.error) {
+      console.log(this.props.error);
+      if (this.props.error) {
         this.setState({
-          errors: this.props.errors.message
+          error: this.props.error.message
         });
       }
     }
@@ -85,20 +86,20 @@ class Login extends Component {
 
   //validate username and password function
   validateForms() {
-    let formErrors = this.state.formErrors;
+    let formerror = this.state.formerror;
     let username = this.state.username;
     let password = this.state.password;
     
     let flag = true
     if (username.length === 0) {
-      formErrors.username = "Username is empty";
+      formerror.username = "Username is empty";
       flag = false
       this.setState({
         usernameValid: false
       });
     }
     if (password.length < 3) {
-      formErrors.password = "Password can't less then 4";
+      formerror.password = "Password can't less then 4";
       flag = false
       this.setState({
         passwordValid: false
@@ -139,7 +140,7 @@ class Login extends Component {
 
           {/* show error message when login */}
           <Typography align="center" color="error" display="block">
-            {this.state.errors}
+            {this.state.error}
           </Typography>
 
           <form
@@ -160,7 +161,7 @@ class Login extends Component {
               autoFocus
               onChange={this.handleChange}
               error={!this.state.usernameValid}
-              helperText={this.state.formErrors.username}
+              helperText={this.state.formerror.username}
             />
             <TextField
               variant="outlined"
@@ -175,7 +176,7 @@ class Login extends Component {
               autoComplete="current-password"
               onChange={this.handleChange}
               error={!this.state.passwordValid}
-              helperText={this.state.formErrors.password}
+              helperText={this.state.formerror.password}
             />
             <Button
               type="submit"
@@ -207,14 +208,14 @@ class Login extends Component {
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
+  error: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired
 };
 
 //putting action state to this component props
 const mapStateToProps = state => ({
   auth: state.auth,
-  errors: state.errors
+  error: state.error
 });
 
 export default compose(

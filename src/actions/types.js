@@ -6,5 +6,11 @@ export const USER_LOADING = "USER_LOADING";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 
 //form for register types
-export const FROM_REGISTRATION = "FORM_REGISTRATION";
+// export const FROM_REGISTRATION = "FORM_REGISTRATION";
+
+//event Types 
+export const SET_EVENT_DETAILS = "SET_EVENT_DETAILS";
+
+//RSVP Types
+export const SET_RSVP_DETAILS = "RSVP_DETAILS"
 

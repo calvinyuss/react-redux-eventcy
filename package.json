@@ -2,7 +2,7 @@
   "name": "react-eventcy",
   "version": "0.1.0",
   "private": true,
-  "git":"https://github.com/calvinyuss/react-redux-eventcy",
+  "git": "https://github.com/calvinyuss/react-redux-eventcy",
   "dependencies": {
     "@material-ui/core": "^4.4.3",
     "axios": "^0.19.0",
@@ -15,6 +15,7 @@
     "react-router-dom": "^5.1.0",
     "react-scripts": "3.1.1",
     "redux": "^4.0.4",
+    "redux-form": "^8.2.6",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {

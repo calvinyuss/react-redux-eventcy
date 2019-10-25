@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import { Provider } from "react-redux";
+import axios from "axios";
 import store from "./store";
 
 import FormPage from './components/end-user/formPage'
@@ -10,6 +11,9 @@ import PrivateRoute from "./components/privateRoute";
 
 import jwt_decode from "jwt-decode";
 import { setCurrentUser, logoutUser, setAuthToken } from "./actions/AuthAction";
+
+//create axios global config
+axios.defaults.baseURL = "http://localhost:8000/";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {

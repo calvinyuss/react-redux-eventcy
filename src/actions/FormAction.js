@@ -1,7 +1,7 @@
 
 export const registrationForm = (form, history) => dispatch => {
     axios
-      .post("http://localhost:8000/api/user/register", form)
+      .post("/api/user/register", form)
       .then(res => history.push("/login")) // re-direct to login on successful register
       .catch(err =>
         dispatch({

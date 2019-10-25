@@ -24,7 +24,7 @@ import {
 // Login - get user token
 export const loginUser = userData => dispatch => {
   axios
-    .post("http://localhost:8000/auth/login", userData)
+    .post("/auth/login", userData)
     .then(res => {
       // Save to localStorage
       // Set token to localStorage
@@ -36,6 +36,10 @@ export const loginUser = userData => dispatch => {
       const decoded = jwt_decode(token);
       // Set current user
       dispatch(setCurrentUser(decoded));
+      dispatch({
+        type: GET_ERRORS,
+        payload: ""
+      })
     })
     .catch(err =>
         dispatch({

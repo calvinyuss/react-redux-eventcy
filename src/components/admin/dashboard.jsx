@@ -2,16 +2,31 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/AuthAction";
+
+import Event from "./event";
+
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      eventDetails:{},
+      error: {}
+    };
+  }
+
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
     this.props.history.push("/admin-login");
   };
+
   render() {
     const { user } = this.props.auth;
     return (
+      
       <div style={{ height: "75vh" }} className="container valign-wrapper">
+        <Event />
         <div className="row">
           <div className="col s12 center-align">
             <h4>
@@ -41,7 +56,9 @@ class Dashboard extends Component {
 }
 Dashboard.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  error: PropTypes.object,
+  
 };
 const mapStateToProps = state => ({
   auth: state.auth
