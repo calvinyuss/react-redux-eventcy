@@ -10,7 +10,7 @@ class Dashboard extends Component {
     super(props);
 
     this.state = {
-      eventDetails:{},
+      eventDetails: {},
       error: {}
     };
   }
@@ -24,18 +24,9 @@ class Dashboard extends Component {
   render() {
     const { user } = this.props.auth;
     return (
-      
       <div style={{ height: "75vh" }} className="container valign-wrapper">
-        <Event />
         <div className="row">
           <div className="col s12 center-align">
-            <h4>
-              <b>Hey there,</b> {user.name}
-              <p className="flow-text grey-text text-darken-1">
-                You are logged into a full-stack{" "}
-                <span style={{ fontFamily: "monospace" }}>MERN</span> app 👏
-              </p>
-            </h4>
             <button
               style={{
                 width: "150px",
@@ -48,6 +39,8 @@ class Dashboard extends Component {
             >
               Logout
             </button>
+
+            <Event />
           </div>
         </div>
       </div>
@@ -57,8 +50,7 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  error: PropTypes.object,
-  
+  error: PropTypes.object
 };
 const mapStateToProps = state => ({
   auth: state.auth

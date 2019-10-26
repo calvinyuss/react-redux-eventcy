@@ -8,5 +8,6 @@ import { reducer as formReducer } from 'redux-form'
 export default combineReducers({
   auth: authReducer,
   errors: errorReducer,
-  event: eventReducer
+  event: eventReducer,
+  form: formReducer
 });
