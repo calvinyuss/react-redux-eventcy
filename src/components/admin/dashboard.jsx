@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/AuthAction";
 
 import Event from "./event";
+import Rsvp from "./rsvp";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class Dashboard extends Component {
             >
               Logout
             </button>
-
+            <Rsvp />
             <Event />
           </div>
         </div>
