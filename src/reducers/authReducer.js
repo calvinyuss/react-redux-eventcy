@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, USER_LOADING } from "../actions/types";
+import { SET_CURRENT_USER, USER_LOADING, LOGOUT_USER } from "../actions/types";
 import _ from "lodash";
 
 const initialState = {
@@ -15,6 +15,8 @@ export default function (state = initialState, action) {
         isAuthenticated: !_.isEmpty(action.payload),
         user: action.payload
       };
+    case LOGOUT_USER:
+      return state=null
     case USER_LOADING:
       return {
         ...state,

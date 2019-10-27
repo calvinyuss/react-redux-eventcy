@@ -17,7 +17,10 @@ import {
 import { withStyles } from "@material-ui/styles";
 
 const styles = {
-  container: {},
+  container: {
+    paddingLeft : ".4em",
+    PaddingRight: ".4em",
+  },
   inputLabel: {
     marginTop: "1em"
   },
@@ -77,6 +80,7 @@ class Event extends Component {
     const { details } = this.state;
     const { classes } = this.props;
     return (
+      
       <Container maxWidth="sm" className={classes.container}>
         <form onSubmit={this.handleSubmit}>
           <Grid container>

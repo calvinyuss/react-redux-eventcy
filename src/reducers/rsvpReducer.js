@@ -11,7 +11,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         details: [...state.details, action.rsvp],
-        participants: [...state.participants,action.participants]
+        participants: action.participants
       };
     default:
       return state;

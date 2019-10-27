@@ -3,6 +3,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getRsvp } from "../../actions/RsvpAction";
+import EnhancedTable from "./participantTable";
 import moment from "moment";
 
 import {
@@ -29,7 +30,13 @@ class Rsvp extends Component {
     };
   }
 
-  async componentDidUpdate(props) {
+  componentDidUpdate(props) {
+    if(this.props.rsvp!==props.rsvp){
+      this.setState({
+        rsvp : this.props.rsvp.details,
+        participants : this.props.rsvp.participants
+      })
+    }
     if (
       (this.props.event && !props.event) ||
       this.props.event !== props.event
@@ -37,32 +44,38 @@ class Rsvp extends Component {
       this.props.event.details.rsvpID.forEach(async id => {
         await this.props.getRsvp(id);
       });
-      console.log(this.props)
-      // this.setState({
-      //   participants
-      // })
     }
   }
 
   render() {
-    const { details } = this.state;
     const { classes } = this.props;
-    return <Container container> {this.state.event.name} emcia lan </Container>;
+    return (
+      <div>
+        <EnhancedTable participants={this.state.participants}/>
+        {/* {this.state.rsvp.map(value=>{
+          return <Grid key={value._id}>{value.rsvpName}</Grid>
+        })} */}
+      </div>
+    );
   }
 }
 
 //set poperty types for this component
-Event.propTypes = {
+Rsvp.propTypes = {
   error: PropTypes.object,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  event: PropTypes.object,
+  rsvp: PropTypes.object
 };
 
 //putting action state to this component props
-const mapStateToProps = state => ({
-  error: state.error,
-  event: state.event,
-  rsvp: state.rsvp
-});
+const mapStateToProps = state => {
+  return {
+    error: state.error,
+    event: state.event,
+    rsvp: state.rsvp
+  };
+};
 
 export default compose(
   withStyles(styles),

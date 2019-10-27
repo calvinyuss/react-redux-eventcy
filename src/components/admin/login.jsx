@@ -206,8 +206,8 @@ class Login extends Component {
 
 //set poperty types for this component
 Login.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
+  loginUser: PropTypes.func,
+  auth: PropTypes.object,
   error: PropTypes.object,
   classes: PropTypes.object.isRequired
 };
@@ -215,7 +215,7 @@ Login.propTypes = {
 //putting action state to this component props
 const mapStateToProps = state => ({
   auth: state.auth,
-  error: state.error
+  error: state.errors
 });
 
 export default compose(

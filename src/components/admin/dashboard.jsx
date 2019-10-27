@@ -1,10 +1,20 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { compose } from "redux";
 import { logoutUser } from "../../actions/AuthAction";
+import MenuAppBar from "./header";
 
 import Event from "./event";
 import Rsvp from "./rsvp";
+import { Grid } from "@material-ui/core";
+import { withStyles } from "@material-ui/styles";
+
+const styles = {
+  root: {
+    flexGrow: 1,
+  }
+};
 
 class Dashboard extends Component {
   constructor(props) {
@@ -22,28 +32,21 @@ class Dashboard extends Component {
     this.props.history.push("/admin-login");
   };
 
+
   render() {
     const { user } = this.props.auth;
+    const { classes } = this.props;
     return (
-      <div style={{ height: "75vh" }} className="container valign-wrapper">
-        <div className="row">
-          <div className="col s12 center-align">
-            <button
-              style={{
-                width: "150px",
-                borderRadius: "3px",
-                letterSpacing: "1.5px",
-                marginTop: "1rem"
-              }}
-              onClick={this.onLogoutClick}
-              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-            >
-              Logout
-            </button>
-            <Rsvp />
+      <div className={classes.root}>
+        <MenuAppBar logOut={this.onLogoutClick} />
+        <Grid container >
+          <Grid item>
             <Event />
-          </div>
-        </div>
+          </Grid>
+          <Grid item>
+            <Rsvp />
+          </Grid>
+        </Grid>
       </div>
     );
   }
@@ -51,12 +54,17 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
   error: PropTypes.object
 };
 const mapStateToProps = state => ({
   auth: state.auth
 });
-export default connect(
-  mapStateToProps,
-  { logoutUser }
+
+export default compose(
+  withStyles(styles),
+  connect(
+    mapStateToProps,
+    { logoutUser }
+  )
 )(Dashboard);
