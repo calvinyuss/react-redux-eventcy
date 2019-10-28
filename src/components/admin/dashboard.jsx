@@ -7,12 +7,12 @@ import MenuAppBar from "./header";
 
 import Event from "./event";
 import Rsvp from "./rsvp";
-import { Grid } from "@material-ui/core";
+import { Container, Hidden } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 
 const styles = {
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   }
 };
 
@@ -32,21 +32,18 @@ class Dashboard extends Component {
     this.props.history.push("/admin-login");
   };
 
-
   render() {
-    const { user } = this.props.auth;
+    // const { user } = this.props.auth;
     const { classes } = this.props;
     return (
       <div className={classes.root}>
         <MenuAppBar logOut={this.onLogoutClick} />
-        <Grid container >
-          <Grid item>
-            <Event />
-          </Grid>
-          <Grid item>
-            <Rsvp />
-          </Grid>
-        </Grid>
+        <Container style={{display:"none"}}>
+          <Event />
+        </Container>
+        <Container fixed style={{padding:0}}>
+          <Rsvp />
+        </Container>
       </div>
     );
   }

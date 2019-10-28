@@ -21,6 +21,8 @@ import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
+import TransitionsModal from './modal'
+
 function desc(a, b, orderBy) {
   if (orderBy !== "date" && orderBy !== "status") {
     if (b.participantData[orderBy] < a.participantData[orderBy]) {
@@ -160,7 +162,7 @@ const EnhancedTableToolbar = props => {
         </Typography>
       ) : (
           <Typography className={classes.title} variant="h6" id="tableTitle">
-            Nutrition
+            Participants 
         </Typography>
         )}
 
@@ -238,7 +240,7 @@ export default function EnhancedTable(props) {
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
+  const handleClickCheckBox = (event, name) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
 
@@ -257,6 +259,13 @@ export default function EnhancedTable(props) {
 
     setSelected(newSelected);
   };
+
+  const handleClickTableRow = (data) => {
+    console.log(data)
+    return (
+      <TransitionsModal data={data} />
+    )
+  }
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -306,7 +315,7 @@ export default function EnhancedTable(props) {
 
                     <TableRow
                       hover
-                      onClick={event => handleClick(event, row._id)}
+                      onClick={event => handleClickCheckBox(event, row._id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}

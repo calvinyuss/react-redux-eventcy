@@ -4,16 +4,9 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getRsvp } from "../../actions/RsvpAction";
 import EnhancedTable from "./participantTable";
-import moment from "moment";
+// import moment from "moment";
 
 import {
-  Container,
-  InputLabel,
-  Input,
-  TextareaAutosize,
-  Switch,
-  Grid,
-  Button
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 
@@ -52,9 +45,6 @@ class Rsvp extends Component {
     return (
       <div>
         <EnhancedTable participants={this.state.participants}/>
-        {/* {this.state.rsvp.map(value=>{
-          return <Grid key={value._id}>{value.rsvpName}</Grid>
-        })} */}
       </div>
     );
   }
