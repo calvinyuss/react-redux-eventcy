@@ -43,7 +43,7 @@ function desc(a, b, orderBy) {
   }
 }
 
-let rows
+let rows = []
 
 function stableSort(array, cmp) {
   const stabilizedThis = array.map((el, index) => [el, index]);
@@ -65,8 +65,8 @@ const headCells = [
   { id: 'NIM', numeric: true, disablePadding: false, label: 'NIM' },
   { id: 'Email', numeric: true, disablePadding: false, label: 'Email' },
   { id: 'Class', numeric: true, disablePadding: false, label: 'Class' },
-  { id: 'Line ID', numeric: true, disablePadding: false, label: 'Phone Number' },
-  { id: 'Phone Number', numeric: true, disablePadding: false, label: 'Line ID' },
+  { id: 'Line ID', numeric: true, disablePadding: false, label: 'Line ID' },
+  { id: 'Phone Number', numeric: true, disablePadding: false, label: 'Phone Number' },
   { id: 'date', numeric: true, disablePadding: false, label: 'Date' },
   { id: 'status', numeric: true, disablePadding: false, label: 'Status' },
 ];
@@ -148,7 +148,7 @@ const useToolbarStyles = makeStyles(theme => ({
 
 const EnhancedTableToolbar = props => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+  const { numSelected, selected, rsvpID } = props;
 
   return (
     <Toolbar
@@ -162,13 +162,12 @@ const EnhancedTableToolbar = props => {
         </Typography>
       ) : (
           <Typography className={classes.title} variant="h6" id="tableTitle">
-            Participants 
+            Participants
         </Typography>
         )}
-
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton aria-label="delete">
+          <IconButton aria-label="delete" onClick={() => props.onDeleteParticipant(rsvpID, selected)} >
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -256,7 +255,6 @@ export default function EnhancedTable(props) {
         selected.slice(selectedIndex + 1),
       );
     }
-
     setSelected(newSelected);
   };
 
@@ -287,7 +285,11 @@ export default function EnhancedTable(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          selected={selected}
+          rsvpID={props.keys}
+          onDeleteParticipant={props.onDeleteParticipant} />
         <div className={classes.tableWrapper}>
           <Table
             className={classes.table}
@@ -315,7 +317,6 @@ export default function EnhancedTable(props) {
 
                     <TableRow
                       hover
-                      onClick={event => handleClickCheckBox(event, row._id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -324,6 +325,7 @@ export default function EnhancedTable(props) {
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
+                          onClick={event => handleClickCheckBox(event, row._id)}
                           checked={isItemSelected}
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
@@ -338,6 +340,13 @@ export default function EnhancedTable(props) {
                       <TableCell align="right">{data["Phone Number"]}</TableCell>
                       <TableCell align="right">{moment(row.date).format('DD-MM-YYYY HH:mm:ss')}</TableCell>
                       <TableCell align="right">{row.status}</TableCell>
+                      <TableCell align="right">
+                        <Tooltip title="Delete">
+                          <IconButton aria-label="delete" onClick={() => props.onDeleteParticipant(props.keys, row._id)}>
+                            <DeleteIcon />
+                          </IconButton>
+                        </Tooltip>
+                      </TableCell>
                     </TableRow>
                   );
                 })}

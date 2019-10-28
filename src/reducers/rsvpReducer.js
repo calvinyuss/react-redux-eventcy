@@ -1,4 +1,5 @@
-import { SET_RSVP_DETAILS } from "../actions/types";
+import { SET_RSVP_DETAILS, DELETE_PARTICIPANT } from "../actions/types";
+import _ from 'lodash'
 
 const initialState = {
   details: [],
@@ -13,6 +14,12 @@ export default function (state = initialState, action) {
         details: [...state.details, action.rsvp],
         participants: action.participants
       };
+    case DELETE_PARTICIPANT:
+        _.remove(state.participants, e => e._id === action.participantID)
+      return {
+        details : [...state.details],
+        participants : state.participants
+      }
     default:
       return state;
   }

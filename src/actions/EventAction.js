@@ -30,8 +30,9 @@ export const updateEvent = (eventID,reqBody) => async dispatch => {
     } catch (err) {
         dispatch({
             type: GET_ERRORS,
-            payload: err
+            payload: "Something went wrong, please try again"
         })
     }
 }
+
 
