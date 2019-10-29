@@ -20,8 +20,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
-
-import TransitionsModal from './modal'
+import _ from 'lodash'
 
 function desc(a, b, orderBy) {
   if (orderBy !== "date" && orderBy !== "status") {
@@ -163,8 +162,10 @@ const EnhancedTableToolbar = props => {
       ) : (
           <Typography className={classes.title} variant="h6" id="tableTitle">
             Participants
-        </Typography>
+          </Typography>
         )}
+        <Typography className={classes.title} variant="subtitle2" >Accepted : {_.filter(rows, x => x.status === "Accepted").length}</Typography>
+        <Typography className={classes.title} variant="subtitle2" >Waiting : {_.filter(rows, x => x.status === "Waiting").length}</Typography>
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton aria-label="delete" onClick={() => props.onDeleteParticipant(rsvpID, selected)} >
@@ -257,13 +258,6 @@ export default function EnhancedTable(props) {
     }
     setSelected(newSelected);
   };
-
-  const handleClickTableRow = (data) => {
-    console.log(data)
-    return (
-      <TransitionsModal data={data} />
-    )
-  }
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

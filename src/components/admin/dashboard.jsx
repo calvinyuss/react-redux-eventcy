@@ -7,7 +7,7 @@ import MenuAppBar from "./header";
 
 import Event from "./event";
 import Rsvp from "./rsvp";
-import { Container, Hidden } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 
 const styles = {
@@ -38,10 +38,10 @@ class Dashboard extends Component {
     return (
       <div className={classes.root}>
         <MenuAppBar logOut={this.onLogoutClick} />
-        <Container style={{display:"none"}}>
+        <Container style={{ display: "none" }}>
           <Event />
         </Container>
-        <Container fixed style={{padding:0}}>
+        <Container fixed style={{ padding: 0 }}>
           <Rsvp />
         </Container>
       </div>
