@@ -13,7 +13,7 @@ import jwt_decode from "jwt-decode";
 import { setCurrentUser, logoutUser, setAuthToken } from "./actions/AuthAction";
 
 //create axios global config
-axios.defaults.baseURL = process.env.local.REACT_APP_BASE_URL
+axios.defaults.baseURL = "https://eventcy.herokuapp.com/"
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
