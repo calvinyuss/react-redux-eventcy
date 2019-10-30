@@ -40,6 +40,7 @@ class Rsvp extends Component {
   }
 
   onDeleteParticipant = async (rsvpID,dataID) => {
+    //eslint-disable-next-line
     let deleteParticipant
     if (typeof(dataID)==="string"){
       deleteParticipant = await this.props.deleteParticipant(rsvpID,dataID)

@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import axios from "axios";
 import store from "./store";
 
-import FormPage from './components/end-user/formPage'
+import FormPage from './components/end-user/form'
 import AdminLogin from './components/admin/login'
 import dashboard from './components/admin/dashboard';
 import PrivateRoute from "./components/privateRoute";
@@ -13,7 +13,7 @@ import jwt_decode from "jwt-decode";
 import { setCurrentUser, logoutUser, setAuthToken } from "./actions/AuthAction";
 
 //create axios global config
-axios.defaults.baseURL = "http://localhost:8000/";
+axios.defaults.baseURL = process.env.local.REACT_APP_BASE_URL
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -41,9 +41,8 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route path="/admin-login" exact component={AdminLogin}></Route>
-            <Route path="/form" exact component={FormPage}></Route>
+            <Route path="/" exact component={FormPage}></Route>
             <PrivateRoute path="/dashboard" exact component={dashboard} />
-            {/* <Route path="/admin" component={Admin}></Route> */}
           </Switch>
         </BrowserRouter>
       </Provider>
