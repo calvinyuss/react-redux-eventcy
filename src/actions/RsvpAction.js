@@ -9,8 +9,7 @@ export const getRsvp = rsvpID => async dispatch => {
     const participants = await Axios.get(`api/rsvp/${rsvpID}/form`)
     dispatch({
       type: SET_RSVP_DETAILS,
-      rsvp: rsvp.data.details,
-      participants: participants.data.participant
+      data: {details: rsvp.data.details,participants:participants.data.participant}
     })
   } catch (err) {
     dispatch({

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { getEvent, updateEvent } from "../../actions/EventAction";
+import { updateEvent } from "../../actions/EventAction";
 import moment from "moment";
 
 import {
@@ -18,8 +18,8 @@ import { withStyles } from "@material-ui/styles";
 
 const styles = {
   container: {
-    paddingLeft : ".4em",
-    PaddingRight: ".4em",
+    paddingLeft: ".4em",
+    PaddingRight: ".4em"
   },
   inputLabel: {
     marginTop: "1em"
@@ -38,7 +38,8 @@ class Event extends Component {
         name: "",
         description: "",
         openRegis: false,
-        price: 0,
+        venue: "",
+        date: "",
         paymentTo: "",
         openRegisDate: "",
         closeRegisDate: ""
@@ -47,22 +48,29 @@ class Event extends Component {
     };
   }
 
-  async componentDidMount() {
-    await this.props.getEvent(this.props.user._id);
-    this.setState({
-      details: this.props.event.details
-    });
+  // async componentDidMount() {
+  //   console.log(this.props);
+  //   await this.props.this.setState({
+  //     details: this.props.event.details
+  //   });
+  // }
+
+  componentDidUpdate(prevProps){
+    if(prevProps.event !== this.props.event){
+      return this.setState({
+        details: this.props.event.details
+      })
+    }
   }
 
   handleChange = e => {
-    console.log(e.target.value);
     let details = this.state.details;
     details[e.target.name] = e.target.value;
     this.setState({
       details: details
     });
   };
-  
+
   handleChangeSwitch = e => {
     let details = this.state.details;
     details[e.target.name] = e.target.checked;
@@ -80,7 +88,6 @@ class Event extends Component {
     const { details } = this.state;
     const { classes } = this.props;
     return (
-      
       <Container maxWidth="sm" className={classes.container}>
         <form onSubmit={this.handleSubmit}>
           <Grid container>
@@ -177,14 +184,13 @@ Event.propTypes = {
 //putting action state to this component props
 const mapStateToProps = state => ({
   event: state.event,
-  error: state.error,
-  user: state.auth.user
+  error: state.error
 });
 
 export default compose(
   withStyles(styles),
   connect(
     mapStateToProps,
-    { getEvent, updateEvent }
+    { updateEvent }
   )
 )(Event);

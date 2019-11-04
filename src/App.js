@@ -1,20 +1,19 @@
-import React, { Component } from 'react';
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import React, { Component, Profiler } from 'react';
+import { Route, BrowserRouter, Switch, Link } from 'react-router-dom';
 import { Provider } from "react-redux";
 import axios from "axios";
 import store from "./store";
 
 import FormPage from './components/end-user/form'
 import AdminLogin from './components/admin/login'
-import dashboard from './components/admin/dashboard';
+import AdminPage from './components/admin/AdminPage';
 import PrivateRoute from "./components/privateRoute";
 
 import jwt_decode from "jwt-decode";
 import { setCurrentUser, logoutUser, setAuthToken } from "./actions/AuthAction";
 
 //create axios global config
-axios.defaults.baseURL = "https://eventcy.herokuapp.com/"
-
+axios.defaults.baseURL = "http://localhost:8000/"
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -40,9 +39,9 @@ class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <Switch>
-            <Route path="/admin-login" exact component={AdminLogin}></Route>
             <Route path="/" exact component={FormPage}></Route>
-            <PrivateRoute path="/dashboard" exact component={dashboard} />
+            <Route path="/admin-login" component={AdminLogin}></Route>
+            <PrivateRoute path="/admin" component={AdminPage} />
           </Switch>
         </BrowserRouter>
       </Provider>

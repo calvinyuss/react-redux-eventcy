@@ -79,7 +79,7 @@ class Login extends Component {
     //redirect to home page
     else if (prevProps.auth !== this.props.auth) {
       if (this.props.auth.isAuthenticated) {
-        this.props.history.push("/dashboard"); // push user to dashboard when they login
+        this.props.history.push("/admin"); // push user to dashboard when they login
       }
     }
   }
