@@ -26,7 +26,10 @@ class TopNavigation extends Component {
         </MDBNavbarBrand>
           <MDBNavbarNav left>
             <MDBNavItem active>
-              <MDBNavLink to="#">Home</MDBNavLink>
+              <MDBNavLink to="/admin">Home</MDBNavLink>
+            </MDBNavItem>
+            <MDBNavItem>
+              <MDBNavLink to="/admin/event">Event</MDBNavLink>
             </MDBNavItem>
           </MDBNavbarNav>
           <MDBNavbarNav right>

@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { updateEvent } from "../../actions/EventAction";
 import moment from "moment";
-
 import {
   Container,
   InputLabel,
@@ -12,21 +10,28 @@ import {
   TextareaAutosize,
   Switch,
   Grid,
-  Button
+  Button,
+  Paper
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 
+import { updateEvent } from "../../actions/EventAction";
+
 const styles = {
   container: {
-    paddingLeft: ".4em",
-    PaddingRight: ".4em"
+    padding: "2em 3em"
   },
   inputLabel: {
-    marginTop: "1em"
+    marginTop: "1em",
+    fontWeight: "bold"
   },
   switch: {},
   input: {
     marginTop: ".5em"
+  },
+  button: {
+    width: "150px",
+    borderRadius: "50px"
   }
 };
 
@@ -48,18 +53,16 @@ class Event extends Component {
     };
   }
 
-  // async componentDidMount() {
-  //   console.log(this.props);
-  //   await this.props.this.setState({
-  //     details: this.props.event.details
-  //   });
-  // }
-
-  componentDidUpdate(prevProps){
-    if(prevProps.event !== this.props.event){
+  componentDidUpdate(prevProps) {
+    if (prevProps.event !== this.props.event) {
       return this.setState({
         details: this.props.event.details
-      })
+      });
+    }
+    if (prevProps.error !== this.props.error) {
+      return this.setState({
+        error: this.props.error.messsage
+      });
     }
   }
 
@@ -88,7 +91,7 @@ class Event extends Component {
     const { details } = this.state;
     const { classes } = this.props;
     return (
-      <Container maxWidth="sm" className={classes.container}>
+      <Paper className={classes.container}>
         <form onSubmit={this.handleSubmit}>
           <Grid container>
             <Grid item xs={3}>
@@ -109,9 +112,29 @@ class Event extends Component {
 
           <InputLabel className={classes.inputLabel}>Event Name</InputLabel>
           <Input
+            fullWidth
             value={details.name}
             type="text"
             name="name"
+            className={classes.input}
+            onChange={this.handleChange}
+          />
+          <InputLabel className={classes.inputLabel}>Venue</InputLabel>
+          <Input
+            fullWidth
+            value={details.venue}
+            type="text"
+            name="venue"
+            className={classes.input}
+            onChange={this.handleChange}
+          />
+          <InputLabel className={classes.inputLabel}>
+            Date
+          </InputLabel>
+          <Input
+            type="datetime-local"
+            name="date"
+            value={moment(details.date).format("YYYY-MM-DDTHH:mm")}
             className={classes.input}
             onChange={this.handleChange}
           />
@@ -120,28 +143,20 @@ class Event extends Component {
             value={details.description}
             type="text"
             name="description"
-            rows="3"
-            rowsMax="5"
+            rows="5"
+            style={{ width: "100%" }}
             className={classes.input}
             onChange={this.handleChange}
           />
-          <InputLabel className={classes.inputLabel}>Price</InputLabel>
-          <Input
-            value={details.price}
-            type="Number"
-            name="price"
-            rows="3"
-            rowsMax="5"
-            className={classes.input}
-            onChange={this.handleChange}
-          />
-          <InputLabel className={classes.inputLabel}>Payment To</InputLabel>
+          <InputLabel className={classes.inputLabel}>
+            Payment Description
+          </InputLabel>
           <TextareaAutosize
             value={details.paymentTo}
             type="text"
             name="paymentTo"
-            rows="3"
-            rowsMax="5"
+            rows="5"
+            style={{ width: "100%" }}
             className={classes.input}
             onChange={this.handleChange}
           />
@@ -166,11 +181,20 @@ class Event extends Component {
             onChange={this.handleChange}
           />
           <br></br>
-          <Button type="submit" variant="contained" color="primary">
-            Update
-          </Button>
+          <Grid container spacing={2} justify="flex-end">
+            <Grid item >
+              <Button className={classes.button} type="submit" variant="contained" color="primary">
+                Update
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button className={classes.button} type="reset" variant="contained" color="primary">
+                Reset
+              </Button>
+            </Grid>
+          </Grid>
         </form>
-      </Container>
+      </Paper>
     );
   }
 }
