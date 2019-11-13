@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import moment from "moment";
 import {
-  Container,
   InputLabel,
   Input,
   TextareaAutosize,
@@ -63,6 +62,14 @@ class Event extends Component {
       return this.setState({
         error: this.props.error.messsage
       });
+    }
+  }
+
+  componentDidMount(){
+    if(this.props.event.details){
+      return this.setState({
+        details: this.props.event.details
+      })
     }
   }
 

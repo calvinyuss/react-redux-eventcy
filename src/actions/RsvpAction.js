@@ -1,5 +1,5 @@
 import Axios from "axios"
-import { GET_ERRORS, SET_RSVP_DETAILS, DELETE_PARTICIPANT } from "./types";
+import { GET_ERRORS, SET_RSVP_DETAILS, DELETE_PARTICIPANT, UPDATE_RSVP_DETAILS } from "./types";
 
 //get event details using eventID 
 export const getRsvp = rsvpID => async dispatch => {
@@ -9,7 +9,7 @@ export const getRsvp = rsvpID => async dispatch => {
     const participants = await Axios.get(`api/rsvp/${rsvpID}/form`)
     dispatch({
       type: SET_RSVP_DETAILS,
-      data: {details: rsvp.data.details,participants:participants.data.participant}
+      data: { details: rsvp.data.details, participants: participants.data.participant }
     })
   } catch (err) {
     dispatch({
@@ -19,11 +19,29 @@ export const getRsvp = rsvpID => async dispatch => {
   }
 }
 
+//update RSVP Details using rsvp id
+export const editRsvp = (rsvpID, data) => async dispatch => {
+  try {
+    const rsvp = await Axios.put(`api/rsvp/${rsvpID}`, data)
+    console.log(rsvp)
+    dispatch({
+      type: UPDATE_RSVP_DETAILS,
+      data: { details: rsvp.data.details }
+    })
+  } catch (err) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: "Something went wrong, please try again"
+    })
+  }
+}
+
+
 //remove participant
 export const deleteParticipant = (rsvpID, dataID) => async dispatch => {
   try {
     const deleteParticipant = await Axios.delete(`api/rsvp/${rsvpID}/form/${dataID}`)
-    if (deleteParticipant.status === 204){
+    if (deleteParticipant.status === 204) {
       dispatch({
         type: DELETE_PARTICIPANT,
         participantID: dataID

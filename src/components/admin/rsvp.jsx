@@ -2,67 +2,111 @@ import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { getRsvp, deleteParticipant } from "../../actions/RsvpAction";
 import EnhancedTable from "./participantTable";
+import RsvpCard from "./AdminRsvpCard";
 // import moment from "moment";
 
-import {} from "@material-ui/core";
+import { getRsvp, deleteParticipant, editRsvp } from "../../actions/RsvpAction";
+
+import { Grid, Card, CardContent } from "@material-ui/core";
+import Icon from "@material-ui/core/Icon";
 import { withStyles } from "@material-ui/styles";
 
-const styles = {};
+const styles = {
+  card: {
+    width: 275,
+    height: 350
+  },
+  addRsvpCard: {
+    height: "100%",
+    textAlign: "center",
+    padding: "50%"
+  }
+};
 
 class Rsvp extends Component {
   constructor(props) {
     super(props);
     this.state = {
       rsvp: [],
-      participants: [],
-      event: {},
       error: {}
     };
   }
 
-  componentDidUpdate(props) {
-    if (this.props.rsvp !== props.rsvp) {
-      this.setState({
-        rsvp: this.props.rsvp.details,
-        participants: this.props.rsvp.participants
+  componentDidUpdate(prevProps) {
+    if (this.props.rsvp !== prevProps.rsvp) {
+      let details = [];
+      this.props.rsvp.rsvp.forEach(element => {
+        details.push(element.details);
       });
-    }
-    if (
-      (this.props.event && !props.event) ||
-      this.props.event !== props.event
-    ) {
-      this.props.event.details.rsvpID.forEach(async id => {
-        await this.props.getRsvp(id);
+      return this.setState({
+        rsvp: details
       });
     }
   }
 
-  onDeleteParticipant = async (rsvpID,dataID) => {
+  componentDidMount() {
+    let details = [];
+      this.props.rsvp.rsvp.forEach(element => {
+        details.push(element.details);
+      });
+      return this.setState({
+        rsvp: details
+      });
+  }
+
+  onDeleteParticipant = async (rsvpID, dataID) => {
     //eslint-disable-next-line
-    let deleteParticipant
-    if (typeof(dataID)==="string"){
-      deleteParticipant = await this.props.deleteParticipant(rsvpID,dataID)
-    }else{
+
+    let deleteParticipant;
+    if (typeof dataID === "string") {
+      deleteParticipant = await this.props.deleteParticipant(rsvpID, dataID);
+    } else {
       dataID.forEach(async id => {
-        deleteParticipant =await this.props.deleteParticipant(rsvpID,id)
+        deleteParticipant = await this.props.deleteParticipant(rsvpID, id);
       });
     }
-    
   };
 
+  onEditRsvp = async (rsvpID, data) => {
+    const editRsvp = await this.props.editRsvp(rsvpID, data);
+  };
+
+  async onDeleteRsvp(rspvID) {}
 
   render() {
-    // const { classes } = this.props;
+    const { classes } = this.props;
     return (
-      <div>
-        <EnhancedTable
-          participants={this.state.participants === undefined ? [] : this.state.participants}
-          keys = {this.state.rsvp.length===0 ? "" : this.state.rsvp[0]._id}
-          onDeleteParticipant={this.onDeleteParticipant}
-        />
-      </div>
+      // <div>
+      //   <EnhancedTable
+      //     participants={
+      //       this.state.participants === undefined ? [] : this.state.participants
+      //     }
+      //     keys={this.state.rsvp.length === 0 ? "" : this.state.rsvp[0]._id}
+      //     onDeleteParticipant={this.onDeleteParticipant}
+      //   />
+      // </div>
+      <Grid container justify="center" className={classes.gridRoot} spacing={2}>
+        {this.state.rsvp.map(value => (
+          <RsvpCard
+            key={value._id}
+            rsvpDetails={value}
+            onEditRsvp={this.onEditRsvp}
+            onDeleteRsvp={this.onDeleteRsvp}
+          />
+        ))}
+        <Grid item>
+          <Card className={classes.card}>
+            <CardContent className={classes.addRsvpCard}>
+              <Icon
+                className="fa fa-plus-circle"
+                color="disabled"
+                fontSize="large"
+              />
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     );
   }
 }
@@ -86,8 +130,5 @@ const mapStateToProps = state => {
 
 export default compose(
   withStyles(styles),
-  connect(
-    mapStateToProps,
-    { getRsvp, deleteParticipant }
-  )
+  connect(mapStateToProps, { getRsvp, deleteParticipant, editRsvp })
 )(Rsvp);

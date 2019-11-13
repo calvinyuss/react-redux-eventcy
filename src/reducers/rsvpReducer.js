@@ -1,4 +1,4 @@
-import { SET_RSVP_DETAILS, DELETE_PARTICIPANT } from "../actions/types";
+import { SET_RSVP_DETAILS, DELETE_PARTICIPANT, UPDATE_RSVP_DETAILS } from "../actions/types";
 import _ from 'lodash'
 
 const initialState = {
@@ -12,6 +12,17 @@ export default function (state = initialState, action) {
         ...state,
         rsvp: [...state.rsvp, action.data]
       };
+    //udpate participant
+    case UPDATE_RSVP_DETAILS:
+      state.rsvp.forEach((rsvp, index) => {
+        if (rsvp.details._id === action.data.details._id) {
+          state.rsvp[index] = action.data.details;
+          return {
+            ...state,
+            rsvp: state.rsvp
+          }
+        }
+      });
     // case DELETE_PARTICIPANT:
     //   _.remove(state.participants, e => e._id === action.participantID)
     //   return {

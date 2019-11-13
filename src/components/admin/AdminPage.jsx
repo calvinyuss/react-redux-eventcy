@@ -12,8 +12,8 @@ import NotFoundPage from "./NotFoundPage";
 
 import "./index.css";
 
-import Event from "./event";
-import Rsvp from "./rsvp";
+import Event from "./Event";
+import Rsvp from "./Rsvp";
 
 class AdminPage extends Component {
   constructor(props) {
@@ -58,6 +58,9 @@ class AdminPage extends Component {
             </Route>
             <Route path="/admin/event">
               <Event />
+            </Route>
+            <Route path="/admin/rsvp">
+              <Rsvp />
             </Route>
             <Route>
               <NotFoundPage />

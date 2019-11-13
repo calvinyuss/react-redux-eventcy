@@ -24,12 +24,17 @@ class TopNavigation extends Component {
         <MDBNavbarBrand href="/admin">
           <strong>Dashboard</strong>
         </MDBNavbarBrand>
+        <MDBNavbarToggler onClick={this.onClick} />
+        <MDBCollapse isOpen={this.state.collapse} navbar>
           <MDBNavbarNav left>
             <MDBNavItem active>
-              <MDBNavLink to="/admin">Home</MDBNavLink>
+            <MDBNavLink to="/admin">Home</MDBNavLink>
             </MDBNavItem>
             <MDBNavItem>
               <MDBNavLink to="/admin/event">Event</MDBNavLink>
+            </MDBNavItem>
+            <MDBNavItem>
+              <MDBNavLink to="/admin/rsvp">RSVP</MDBNavLink>
             </MDBNavItem>
           </MDBNavbarNav>
           <MDBNavbarNav right>
@@ -37,6 +42,7 @@ class TopNavigation extends Component {
               <a className="border border-light rounded mr-1 nav-link Ripple-parent" rel="noopener noreferrer"><MDBIcon fab icon="profile" className="mr-2" />Setting</a>
             </MDBNavItem>
           </MDBNavbarNav>
+        </MDBCollapse>
       </MDBNavbar>
     );
   }
