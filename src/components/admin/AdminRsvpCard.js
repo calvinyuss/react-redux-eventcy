@@ -110,6 +110,7 @@ export default function RsvpCard(props) {
                   variant="outlined"
                   fullWidth
                   className={classes.cardMainButton}
+                  onClick={e => props.onDeleteRsvp(rsvp._id)}
                 >
                   Delete
                     </Button>

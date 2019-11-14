@@ -1,5 +1,5 @@
 import Axios from "axios"
-import { GET_ERRORS, SET_EVENT_DETAILS, } from "./types";
+import { GET_ERRORS, SET_EVENT_DETAILS } from "./types";
 
 //get event details using eventID 
 export const getEvent = eventID => async dispatch => {
@@ -8,7 +8,7 @@ export const getEvent = eventID => async dispatch => {
         if (!event.data.details) dispatch({ type: GET_ERRORS, message: event.message });
         dispatch({
             type: SET_EVENT_DETAILS,
-            payload : event.data.details
+            payload: event.data.details
         })
     } catch (err) {
         dispatch({
@@ -18,15 +18,14 @@ export const getEvent = eventID => async dispatch => {
     }
 }
 
-
 //update Event 
-export const updateEvent = (eventID,reqBody) => async dispatch => {
+export const updateEvent = (eventID, reqBody) => async dispatch => {
     try {
-        const event = await Axios.put(`api/event/${eventID}`,reqBody);
+        const event = await Axios.put(`api/event/${eventID}`, reqBody);
         if (!event.data.details) dispatch({ type: GET_ERRORS, message: event.message });
         dispatch({
             type: SET_EVENT_DETAILS,
-            payload : event.data.details
+            payload: event.data.details
         })
     } catch (err) {
         dispatch({

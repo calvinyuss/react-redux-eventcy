@@ -1,5 +1,5 @@
 import Axios from "axios"
-import { GET_ERRORS, SET_RSVP_DETAILS, DELETE_PARTICIPANT, UPDATE_RSVP_DETAILS, NEW_RSVP } from "./types";
+import { GET_ERRORS, SET_RSVP_DETAILS, DELETE_PARTICIPANT, UPDATE_RSVP_DETAILS, NEW_RSVP, DELETE_RSVP } from "./types";
 
 //get event details using eventID 
 export const getRsvp = rsvpID => async dispatch => {
@@ -33,6 +33,23 @@ export const newRsvp = eventID => async dispatch => {
       payload: "Something went wrong, please try again"
     })
   }
+}
+
+//delete rsvp 
+export const deleteRsvp = rsvpID => async dispatch => {
+  try {
+    const deleteRSvp = await Axios.delete(`api/rsvp/${rsvpID}`);
+    dispatch({
+      type: DELETE_RSVP, 
+      rsvpID: rsvpID
+    })
+  } catch{
+    dispatch({
+      type: GET_ERRORS,
+      payload: "Something went wrong, please try again"
+    })
+  }
+
 }
 
 //update RSVP Details using rsvp id

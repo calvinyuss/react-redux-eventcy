@@ -10,7 +10,8 @@ import {
   getRsvp,
   deleteParticipant,
   editRsvp,
-  newRsvp
+  newRsvp,
+  deleteRsvp
 } from "../../actions/RsvpAction";
 
 import { Grid, Card, CardContent } from "@material-ui/core";
@@ -81,7 +82,9 @@ class Rsvp extends Component {
     const newRsvp = await this.props.newRsvp(this.props.event.details._id);
   };
 
-  async onDeleteRsvp(rspvID) {}
+  onDeleteRsvp = async rspvID =>  {
+    const deleteRsvp = await this.props.deleteRsvp(rspvID);
+  }
 
   render() {
     const { classes } = this.props;
@@ -140,5 +143,11 @@ const mapStateToProps = state => {
 
 export default compose(
   withStyles(styles),
-  connect(mapStateToProps, { getRsvp, deleteParticipant, editRsvp, newRsvp })
+  connect(mapStateToProps, {
+    getRsvp,
+    deleteParticipant,
+    editRsvp,
+    newRsvp,
+    deleteRsvp
+  })
 )(Rsvp);
