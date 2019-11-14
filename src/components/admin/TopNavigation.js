@@ -36,6 +36,9 @@ class TopNavigation extends Component {
             <MDBNavItem>
               <MDBNavLink to="/admin/rsvp">RSVP</MDBNavLink>
             </MDBNavItem>
+            <MDBNavItem>
+              <MDBNavLink to="/admin/participant">Participant</MDBNavLink>
+            </MDBNavItem>
           </MDBNavbarNav>
           <MDBNavbarNav right>
             <MDBNavItem>

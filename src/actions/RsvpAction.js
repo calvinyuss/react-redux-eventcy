@@ -77,7 +77,8 @@ export const deleteParticipant = (rsvpID, dataID) => async dispatch => {
     if (deleteParticipant.status === 204) {
       dispatch({
         type: DELETE_PARTICIPANT,
-        participantID: dataID
+        participantID: dataID,
+        rsvpID: rsvpID
       })
       return 1
     }

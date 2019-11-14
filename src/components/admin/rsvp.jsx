@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import EnhancedTable from "./participantTable";
 import RsvpCard from "./AdminRsvpCard";
 // import moment from "moment";
 
@@ -61,19 +60,6 @@ class Rsvp extends Component {
     });
   }
 
-  onDeleteParticipant = async (rsvpID, dataID) => {
-    //eslint-disable-next-line
-
-    let deleteParticipant;
-    if (typeof dataID === "string") {
-      deleteParticipant = await this.props.deleteParticipant(rsvpID, dataID);
-    } else {
-      dataID.forEach(async id => {
-        deleteParticipant = await this.props.deleteParticipant(rsvpID, id);
-      });
-    }
-  };
-
   onEditRsvp = async (rsvpID, data) => {
     const editRsvp = await this.props.editRsvp(rsvpID, data);
   };
@@ -89,15 +75,6 @@ class Rsvp extends Component {
   render() {
     const { classes } = this.props;
     return (
-      // <div>
-      //   <EnhancedTable
-      //     participants={
-      //       this.state.participants === undefined ? [] : this.state.participants
-      //     }
-      //     keys={this.state.rsvp.length === 0 ? "" : this.state.rsvp[0]._id}
-      //     onDeleteParticipant={this.onDeleteParticipant}
-      //   />
-      // </div>
       <Grid container justify="center" className={classes.gridRoot} spacing={2}>
         {this.state.rsvp.map(value => (
           <RsvpCard

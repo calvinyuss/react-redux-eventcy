@@ -9,7 +9,6 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case SET_RSVP_DETAILS:
       return {
-        ...state,
         rsvp: [...state.rsvp, action.data]
       };
     case NEW_RSVP:
@@ -34,12 +33,13 @@ export default function (state = initialState, action) {
           }
         }
       });
-    // case DELETE_PARTICIPANT:
-    //   _.remove(state.participants, e => e._id === action.participantID)
-    //   return {
-    //     details: [...state.details],
-    //     participants: state.participants
-    //   }
+    case DELETE_PARTICIPANT:
+      state.rsvp.forEach((rsvp,index)=>{
+        if(rsvp.details._id === action.rsvpID){
+          _.remove(rsvp.participants, e => e._id === action.participantID)
+          return state.rsvp[index].participants = rsvp.participants
+        }
+      })
     default:
       return state;
   }

@@ -1,5 +1,5 @@
-import React, { Component, Profiler } from 'react';
-import { Route, BrowserRouter, Switch, Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import { Provider } from "react-redux";
 import axios from "axios";
 import store from "./store";

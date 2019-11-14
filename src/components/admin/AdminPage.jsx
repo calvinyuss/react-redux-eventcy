@@ -1,19 +1,21 @@
 import React, { Component } from "react";
+import { Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+
 import { logoutUser } from "../../actions/AuthAction";
 import { getEvent } from "../../actions/EventAction";
 import { getRsvp } from "../../actions/RsvpAction";
 
 import TopNavigation from "./TopNavigation";
 import Footer from "./Footer";
-import { Route, Switch } from "react-router-dom";
 import NotFoundPage from "./NotFoundPage";
-
-import "./index.css";
 
 import Event from "./Event";
 import Rsvp from "./Rsvp";
+import Particpant from "./Participant";
+
+import "./index.css";
 
 class AdminPage extends Component {
   constructor(props) {
@@ -40,18 +42,9 @@ class AdminPage extends Component {
 
   render() {
     return (
-      // <div className={classes.root}>
-      //   <MenuAppBar logOut={this.onLogoutClick} />
-      //   <Container style={{ display: "none" }}>
-      //     <Event />
-      //   </Container>
-      //   <Container fixed style={{ padding: 0 }}>
-      //     <Rsvp />
-      //   </Container>
-      // </div>
       <div className="flexible-content">
         <TopNavigation />
-        <main id="content" className="p-5 mainAdminContent">
+        <main id="content" className="p-4 mainAdminContent">
           <Switch>
             <Route exact path="/admin">
               <div>Hello world</div>
@@ -61,6 +54,9 @@ class AdminPage extends Component {
             </Route>
             <Route path="/admin/rsvp">
               <Rsvp />
+            </Route>
+            <Route path="/admin/participant">
+              <Particpant />
             </Route>
             <Route>
               <NotFoundPage />
