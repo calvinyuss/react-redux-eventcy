@@ -87,7 +87,7 @@ export default function RsvpCard(props) {
   return (
     <Grid key={rsvp._id} item className={rootClass}>
       <Card className={cardClass}>
-        <CardHeader title="Registration" className={classes.cardHeader} />
+        <CardHeader title={rsvp.name} className={classes.cardHeader} />
         {!expanded ? (
           <CardContent>
             <Grid container justify="center">

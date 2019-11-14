@@ -1,5 +1,5 @@
 import Axios from "axios"
-import { GET_ERRORS, SET_EVENT_DETAILS } from "./types";
+import { GET_ERRORS, SET_EVENT_DETAILS, } from "./types";
 
 //get event details using eventID 
 export const getEvent = eventID => async dispatch => {
@@ -17,6 +17,7 @@ export const getEvent = eventID => async dispatch => {
         })
     }
 }
+
 
 //update Event 
 export const updateEvent = (eventID,reqBody) => async dispatch => {

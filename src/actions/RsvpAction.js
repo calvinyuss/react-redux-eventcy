@@ -1,5 +1,5 @@
 import Axios from "axios"
-import { GET_ERRORS, SET_RSVP_DETAILS, DELETE_PARTICIPANT, UPDATE_RSVP_DETAILS } from "./types";
+import { GET_ERRORS, SET_RSVP_DETAILS, DELETE_PARTICIPANT, UPDATE_RSVP_DETAILS, NEW_RSVP } from "./types";
 
 //get event details using eventID 
 export const getRsvp = rsvpID => async dispatch => {
@@ -15,6 +15,22 @@ export const getRsvp = rsvpID => async dispatch => {
     dispatch({
       type: GET_ERRORS,
       payload: err
+    })
+  }
+}
+
+//add new rsvp
+export const newRsvp = eventID => async dispatch => {
+  try {
+    const newRsvp = await Axios.post(`api/event/${eventID}/rsvp`);
+    dispatch({
+      type: NEW_RSVP,
+      data: { details: newRsvp.data.details }
+    })
+  } catch{
+    dispatch({
+      type: GET_ERRORS,
+      payload: "Something went wrong, please try again"
     })
   }
 }

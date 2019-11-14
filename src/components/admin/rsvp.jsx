@@ -6,7 +6,12 @@ import EnhancedTable from "./participantTable";
 import RsvpCard from "./AdminRsvpCard";
 // import moment from "moment";
 
-import { getRsvp, deleteParticipant, editRsvp } from "../../actions/RsvpAction";
+import {
+  getRsvp,
+  deleteParticipant,
+  editRsvp,
+  newRsvp
+} from "../../actions/RsvpAction";
 
 import { Grid, Card, CardContent } from "@material-ui/core";
 import Icon from "@material-ui/core/Icon";
@@ -47,12 +52,12 @@ class Rsvp extends Component {
 
   componentDidMount() {
     let details = [];
-      this.props.rsvp.rsvp.forEach(element => {
-        details.push(element.details);
-      });
-      return this.setState({
-        rsvp: details
-      });
+    this.props.rsvp.rsvp.forEach(element => {
+      details.push(element.details);
+    });
+    return this.setState({
+      rsvp: details
+    });
   }
 
   onDeleteParticipant = async (rsvpID, dataID) => {
@@ -70,6 +75,10 @@ class Rsvp extends Component {
 
   onEditRsvp = async (rsvpID, data) => {
     const editRsvp = await this.props.editRsvp(rsvpID, data);
+  };
+
+  addNewRsvp = async () => {
+    const newRsvp = await this.props.newRsvp(this.props.event.details._id);
   };
 
   async onDeleteRsvp(rspvID) {}
@@ -102,6 +111,7 @@ class Rsvp extends Component {
                 className="fa fa-plus-circle"
                 color="disabled"
                 fontSize="large"
+                onClick={this.addNewRsvp}
               />
             </CardContent>
           </Card>
@@ -130,5 +140,5 @@ const mapStateToProps = state => {
 
 export default compose(
   withStyles(styles),
-  connect(mapStateToProps, { getRsvp, deleteParticipant, editRsvp })
+  connect(mapStateToProps, { getRsvp, deleteParticipant, editRsvp, newRsvp })
 )(Rsvp);
