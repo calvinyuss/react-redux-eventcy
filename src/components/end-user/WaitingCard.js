@@ -15,7 +15,7 @@ export default function PaymentCard(props) {
               You're currently in our. Please wait for further information from us whether you acquired a spot or not. Thank you for your registration.
             </p>
             <p className="h6 text-justify">
-              for further information please do contact us through our official line account: @bemuphmedan (use @)
+              for further information please do contact us through our official line account: .________________
             </p>
           </div>
           <div className="text-center py-4 mt-3" style={{ padding: 0 }}>

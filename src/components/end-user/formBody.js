@@ -5,7 +5,6 @@ import Axios from "axios";
 export default function FormBody(props) {
   const [field] = useState({})
   const [errorMessage, setErrorMessage] = useState('')
-
   const onHandleChange = (e) => {
     field[e.target.name] = e.target.value
   }
@@ -38,7 +37,7 @@ export default function FormBody(props) {
     window.scrollTo(0, 0)
     try {
       if (validate() !== 1) return
-      const data = await Axios.post("http://localhost:8000/api/rsvp/5db1c1a9f6e3d41a38531f25/form", field)
+      const data = await Axios.post(`http://localhost:8000/api/rsvp/${props.formID}/form`, field)
       if (data.data.message) {
         setErrorMessage("Email already exist")
         window.scrollTo(0, 0)
