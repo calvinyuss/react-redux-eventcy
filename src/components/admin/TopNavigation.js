@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBIcon } from 'mdbreact';
 
 class TopNavigation extends Component {
-  state = {
-    collapse: false
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      collapse: false
+    };
   }
 
   onClick = () => {
@@ -27,9 +31,9 @@ class TopNavigation extends Component {
         <MDBNavbarToggler onClick={this.onClick} />
         <MDBCollapse isOpen={this.state.collapse} navbar>
           <MDBNavbarNav left>
-            <MDBNavItem active>
+            {/* <MDBNavItem active>
             <MDBNavLink to="/admin">Home</MDBNavLink>
-            </MDBNavItem>
+            </MDBNavItem> */}
             <MDBNavItem>
               <MDBNavLink to="/admin/event">Event</MDBNavLink>
             </MDBNavItem>
@@ -42,7 +46,7 @@ class TopNavigation extends Component {
           </MDBNavbarNav>
           <MDBNavbarNav right>
             <MDBNavItem>
-              <a className="border border-light rounded mr-1 nav-link Ripple-parent" rel="noopener noreferrer"><MDBIcon fab icon="profile" className="mr-2" />Setting</a>
+              <a onClick={e => this.props.logout(e)} className="border border-light rounded mr-1 nav-link Ripple-parent" rel="noopener noreferrer"><MDBIcon fab icon="profile" className="mr-2" />Logout</a>
             </MDBNavItem>
           </MDBNavbarNav>
         </MDBCollapse>

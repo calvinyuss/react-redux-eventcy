@@ -9,6 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import EnhancedTable from "./participantTable";
+import Snackbar from '@material-ui/core/Snackbar';
+import MaterialTable from "material-table"
 
 import { deleteParticipant } from "../../actions/RsvpAction";
 
@@ -52,7 +54,7 @@ const useStyles = makeStyles(theme => ({
 function Partcipant(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const [rsvp, setRsvp] = React.useState([]);
+  const [rsvp, setRsvp] = React.useState([]); 
 
   useEffect(() => {
     if (rsvp !== props.rsvp.rsvp) {
@@ -66,16 +68,19 @@ function Partcipant(props) {
 
   const onDeleteParticipant = async (rsvpID, dataID) => {
     //eslint-disable-next-line
-    let deleteParticipant;
     if (typeof dataID === "string") {
-      deleteParticipant = await props.deleteParticipant(rsvpID, dataID);
+      await props.deleteParticipant(rsvpID, dataID);
     } else {
       dataID.forEach(async id => {
-        deleteParticipant = await props.deleteParticipant(rsvpID, id);
+        await props.deleteParticipant(rsvpID, id);
       });
     }
   };
 
+
+
+
+  console.log(rsvp)
   return (
     <div>
       {rsvp.length === 0 ? (

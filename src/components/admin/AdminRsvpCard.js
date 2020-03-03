@@ -131,7 +131,7 @@ export default function RsvpCard(props) {
         ) : (
             <CardContent>
               <Grid container>
-                <Grid item xs={2}>
+                {/* <Grid item xs={2}>
                   <InputLabel className={classes.inputLabel}>
                     Open Public
               </InputLabel>
@@ -143,7 +143,7 @@ export default function RsvpCard(props) {
                     checked={rsvp.public}
                     onChange={e => handleChangeSwitch(e)}
                   />
-                </Grid>
+                </Grid> */}
               </Grid>
               <InputLabel className={classes.inputLabel}>Rsvp Name</InputLabel>
               <Input

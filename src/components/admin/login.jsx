@@ -40,8 +40,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://www.instagram.com/sistech_uphmedan/">
-        <u>HMPSSI</u>
+      <Link color="inherit" href="https://www.instagram.com/calvinyuss/">
+        <u>CY</u>
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}

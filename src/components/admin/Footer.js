@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <MDBFooter color="blue" className="text-center font-small darken-2">
       <p className="footer-copyright mb-0 py-3 text-center">
-        &copy; {new Date().getFullYear()} Copyright: <a href="https://www.instagram.com/sistech_uphmedan/"> HMPSSI </a>
+        &copy; {new Date().getFullYear()} Copyright: <a href="https://www.instagram.com/calvinyuss/"> CY </a>
       </p>
     </MDBFooter>
   );

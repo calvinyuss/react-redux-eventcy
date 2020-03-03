@@ -19,6 +19,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import _ from 'lodash'
 
@@ -240,12 +241,11 @@ export default function EnhancedTable(props) {
     setSelected([]);
   };
 
-  const handleClickCheckBox = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClickCheckBox = (event, id) => {
+    const selectedIndex = selected.indexOf(id);
     let newSelected = [];
-
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -257,7 +257,12 @@ export default function EnhancedTable(props) {
       );
     }
     setSelected(newSelected);
+    console.log(selected)
   };
+
+  const handleEditClick = (id) => {
+
+  }
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -272,7 +277,7 @@ export default function EnhancedTable(props) {
     setDense(event.target.checked);
   };
 
-  const isSelected = name => selected.indexOf(name) !== -1;
+  const isSelected = id => selected.indexOf(id) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
@@ -335,6 +340,11 @@ export default function EnhancedTable(props) {
                       <TableCell align="right">{moment(row.date).format('DD-MM-YYYY HH:mm:ss')}</TableCell>
                       <TableCell align="right">{row.status}</TableCell>
                       <TableCell align="right">
+                        <Tooltip title="Edit">
+                          <IconButton aria-label="edit" onClick={() => props.onDeleteParticipant(props.keys, row._id)}>
+                            <EditIcon />
+                          </IconButton>
+                        </Tooltip>
                         <Tooltip title="Delete">
                           <IconButton aria-label="delete" onClick={() => props.onDeleteParticipant(props.keys, row._id)}>
                             <DeleteIcon />

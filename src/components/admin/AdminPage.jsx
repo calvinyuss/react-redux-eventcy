@@ -43,11 +43,11 @@ class AdminPage extends Component {
   render() {
     return (
       <div className="flexible-content">
-        <TopNavigation />
+        <TopNavigation logout={this.onLogoutClick} />
         <main id="content" className="p-4 mainAdminContent">
           <Switch>
             <Route exact path="/admin">
-              <div>Hello world</div>
+              {/* <div>Hello world</div> */}
             </Route>
             <Route path="/admin/event">
               <Event />

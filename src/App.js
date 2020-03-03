@@ -13,7 +13,7 @@ import jwt_decode from "jwt-decode";
 import { setCurrentUser, logoutUser, setAuthToken } from "./actions/AuthAction";
 
 //create axios global config
-axios.defaults.baseURL = "http://localhost:8000/"
+axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
   // Set auth token header auth
